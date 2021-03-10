@@ -38,8 +38,12 @@ app.get('/pagar', async (req, res) => {
         return res.redirect(pagamento.body.init_point)
     } catch (error) {
         return res.send(error.message)
-    }
-    
+    }    
+})
+
+app.post('/not', (req, res) => {
+    console.log(req.query)
+    res.send('OK')
 })
 
 app.listen(3000, () => {
