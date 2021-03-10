@@ -42,7 +42,30 @@ app.get('/pagar', async (req, res) => {
 })
 
 app.post('/not', (req, res) => {
-    console.log(req.query)
+    let id = req.query.id
+
+    setTimeout(() => {
+        let filtro = {
+            "order.id": id
+        }
+
+        MercadoPago.payment.search({
+            qs: filtro
+        }).then(data => {
+            let pagamento = data.body.results[0]
+
+            if(pagamento != undefined){
+                console.log(pagamento.external_reference)
+                console.log(pagamento.status)
+            }else{
+                console.log('Pagamento nao existe!')
+            }
+        }).catch(err => {
+            console.log(err)
+        })
+        
+    },20000)
+
     res.send('OK')
 })
 
@@ -50,4 +73,4 @@ app.listen(80, () => {
     console.log('Server Running')
 })
 
-//Abc201317!Abc
+//Senha servidor de Teste Digital Ocean: Abc201317!Abc
